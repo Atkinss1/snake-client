@@ -1,13 +1,6 @@
 const net = require('net');
 const { IP, PORT } = require('./constants');
 
-/**MOVE COMMANDS
-"Move: up" - move up one square (unless facing down)
-"Move: down" - move down one square (unless facing up)
-"Move: left" - move left one square (unless facing right)
-"Move: right" - move left one square (unless facing left)
- */
-
 // establishes a connection with the game server
 const connect = function() {
   const conn = net.createConnection({
@@ -15,6 +8,7 @@ const connect = function() {
     port: PORT
   });
 
+  // on connection, server will write message
   conn.on('connect', () => {
     console.log('Sucessfully connected to the game server!');
     conn.write('Name: SNK');
