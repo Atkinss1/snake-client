@@ -1,4 +1,4 @@
-const { stdin } = require('./constants');
+const { stdin, userInput } = require('./constants');
 let connection;
 
 
@@ -23,38 +23,13 @@ const handleUserInput = function(key) {
   if (intervalId) {
     clearInterval(intervalId);
   }
-
-  if (key === 'w') {
-    intervalId = setInterval(() => {
-      connection.write('Move: up');
-    }, 200);
+  for (const input in userInput) {
+    if (key === input) {
+      intervalId = setInterval(() => {
+        connection.write(userInput[key]);
+      },50);
+    }
   }
-  if (key === 's') {
-    intervalId = setInterval(() => {
-      connection.write('Move: down');
-    }, 200);
-  }
-  if (key === 'a') {
-    intervalId = setInterval(() => {
-      connection.write('Move: left');
-    }, 200);
-  }
-  if (key === 'd') {
-    intervalId = setInterval(() => {
-      connection.write('Move: right');
-    }, 200);
-  }
-  if (key === '1') {
-    connection.write('Say: hello');
-  }
-  if (key === '2') {
-    connection.write('Say: HA-HA!');
-  }
-  if (key === '3') {
-    connection.write('Say: oof, that hurt!');
-  }
-  
-  
 };
 
 
