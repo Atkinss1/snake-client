@@ -1,4 +1,4 @@
-const { stdin, userInput } = require('./constants');
+const { stdin, userInput, userQuickChat } = require('./constants');
 let connection;
 
 
@@ -20,17 +20,26 @@ const handleUserInput = function(key) {
     process.exit();
   }
   // clear previous setInterval before starting new setInterval
-  if (intervalId) {
-    clearInterval(intervalId);
-  }
   for (const input in userInput) {
     if (key === input) {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
       intervalId = setInterval(() => {
         connection.write(userInput[key]);
-      },50);
+      },120);
+    
+    } else {
+      for (const chat in userQuickChat) {
+        if (key === chat) {
+          connection.write(userQuickChat[chat]);
+          return;
+        }
+      }
     }
   }
 };
+
 
 
 module.exports = {
